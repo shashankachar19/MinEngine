@@ -18,9 +18,9 @@ export default function HoverBottomNav() {
   switch (state.step) {
     case 0:
       text = 'SYSTEM NOMINAL. ALL SECTORS SECURE.';
-      buttonText = '[ SIMULATE SLOPE MOVEMENT ]';
+      buttonText = '[ CLICK HERE TO START SIMULATION ]';
       icon = <Terminal className="w-5 h-5 text-emerald-700" />;
-      buttonClass = 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800';
+      buttonClass = 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 animate-pulse ring-2 ring-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.5)]';
       action = () => goToStep(1);
       explainerTitle = 'Phase 1: Hazard Induction';
       explainerText = 'This will simulate a critical slope displacement in Sector 4 to demonstrate the AI\'s real-time detection capabilities.';
