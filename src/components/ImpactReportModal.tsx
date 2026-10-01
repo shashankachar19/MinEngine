@@ -5,52 +5,55 @@ import { useMemo } from 'react';
 export default function ImpactReportModal() {
   const { state, closeImpactReport } = useSimulation();
 
-  const aiResponseTime = useMemo(() => (Math.random() * 2.5 + 3.2).toFixed(1), []); // e.g. 4.7
+  const totalWorkers = 42;
+  const exposedWorkers = 17;
+  const coordCycleTime = '45.5s';
+  const replanningTime = '11.5s';
 
   if (state.step < 4 || !state.showImpactReport) return null;
 
   const metrics = [
     {
-      label: 'Detection → Response Time',
-      manual: '~12 minutes',
-      ai: `${aiResponseTime} seconds`,
-      impact: '↓ 99.3% faster',
-      impactColor: 'text-emerald-400',
+      label: 'Incident Assessment',
+      simType: 'Multi-agent analysis',
+      result: `~${coordCycleTime} simulated coordination cycle`,
+      resultColor: 'text-emerald-600',
     },
     {
-      label: 'Casualties',
-      manual: '2–5 (estimated)',
-      ai: '0',
-      impact: '↓ 100% reduction',
-      impactColor: 'text-emerald-400',
-    },
-    {
-      label: 'AI Compute Latency',
-      manual: 'N/A',
-      ai: '124 ms',
-      impact: '↓ Ultra-low latency',
-      impactColor: 'text-emerald-400',
-    },
-    {
-      label: 'Evacuation Route Replanning',
-      manual: '8–15 minutes (radio)',
-      ai: '1.8 seconds (auto)',
-      impact: '↓ Autonomous',
-      impactColor: 'text-cyan-400',
+      label: 'Personnel Exposure',
+      simType: 'Simulated personnel telemetry',
+      result: `${exposedWorkers} potentially exposed`,
+      resultColor: 'text-amber-600',
     },
     {
       label: 'Personnel Accountability',
-      manual: 'Manual headcount',
-      ai: 'Real-time IoT tracking',
-      impact: 'Instant verification',
-      impactColor: 'text-cyan-400',
+      simType: 'Simulated GPS/RTLS',
+      result: `${totalWorkers}/${totalWorkers} accounted`,
+      resultColor: 'text-emerald-600',
     },
     {
-      label: 'Multi-Incident Coordination',
-      manual: 'Single-threaded',
-      ai: 'Parallel agent system',
-      impact: '↓ Concurrent handling',
-      impactColor: 'text-cyan-400',
+      label: 'Route Replanning',
+      simType: 'Deterministic route engine',
+      result: `~${replanningTime} AI-assisted replanning`,
+      resultColor: 'text-cyan-600',
+    },
+    {
+      label: 'Active Incidents',
+      simType: 'Multi-incident simulation',
+      result: '2 concurrent incidents',
+      resultColor: 'text-red-500',
+    },
+    {
+      label: 'Resource Reallocation',
+      simType: 'AI-assisted coordination',
+      result: 'Ambulances reassigned',
+      resultColor: 'text-emerald-600',
+    },
+    {
+      label: 'Human Approval',
+      simType: 'Safety-critical action',
+      result: 'Required & Logged',
+      resultColor: 'text-cyan-600',
     },
   ];
 
@@ -102,44 +105,42 @@ export default function ImpactReportModal() {
           <div class="meta">
             Crisis Impact Report<br/>
             ${dateStr} — ${timeStr}<br/>
-            Sandur Open-Cast Mine, Bellary
+            Simulated Sandur Open-Cast Mining Scenario — Bellary, Karnataka
           </div>
         </div>
 
         <div class="success">
-          <h2>✅ CRISIS CONTAINED — 0 Casualties Recorded</h2>
-          <p>All 42 personnel accounted for. Site secured. No environmental damage.</p>
+          <h2>✅ SIMULATED CRISIS CONTAINED</h2>
+          <p>${totalWorkers}/${totalWorkers} simulated personnel accounted for. Response plan verified in simulation.</p>
         </div>
 
         <table>
           <thead>
             <tr>
               <th>Metric</th>
-              <th>Manual</th>
-              <th>minEngine AI</th>
-              <th>Impact</th>
+              <th>minEngine Simulation</th>
+              <th>Observed Result</th>
             </tr>
           </thead>
           <tbody>
             ${metrics.map(m => `
               <tr>
                 <td style="font-weight:600">${m.label}</td>
-                <td class="manual">${m.manual}</td>
-                <td class="ai">${m.ai}</td>
-                <td class="impact">${m.impact}</td>
+                <td class="manual" style="color:#78716c">${m.simType}</td>
+                <td class="ai">${m.result}</td>
               </tr>
             `).join('')}
           </tbody>
         </table>
 
         <div class="stats">
-          <div class="stat emerald"><div class="num">124ms</div><div class="label">AI Compute Latency</div></div>
-          <div class="stat blue"><div class="num">45ms</div><div class="label">Network Override</div></div>
-          <div class="stat red"><div class="num">4m 12s</div><div class="label">Total Evacuation</div></div>
+          <div class="stat emerald"><div class="num">${coordCycleTime}</div><div class="label">Simulated Coordination Cycle</div></div>
+          <div class="stat blue"><div class="num">${replanningTime}</div><div class="label">Simulated Route Replanning</div></div>
+          <div class="stat emerald"><div class="num">${totalWorkers}/${totalWorkers}</div><div class="label">Simulated Personnel Accounted</div></div>
         </div>
 
         <div class="footer">
-          Generated by minEngine AI Crisis Command System — Sandur Open-Cast Iron Ore Mine, Bellary District
+          <strong>Simulation Note:</strong> All incidents, personnel, telemetry, timings and outcomes shown in this report are generated within the minEngine prototype simulation and are not measurements from a live mine deployment.
         </div>
       </body>
       </html>
@@ -164,7 +165,7 @@ export default function ImpactReportModal() {
             </div>
             <div>
               <h2 className="text-3xl font-black text-stone-900 tracking-tight">Crisis Impact Report</h2>
-              <p className="text-xl text-stone-500 font-medium mt-1">Manual Response vs. minEngine AI Coordination</p>
+              <p className="text-xl text-stone-500 font-medium mt-1">Multi-Agent Coordination Simulation</p>
             </div>
           </div>
           <button onClick={closeImpactReport} className="w-14 h-14 flex items-center justify-center rounded-2xl bg-white border border-stone-200 shadow-sm hover:bg-stone-50 text-stone-500 hover:text-stone-900 transition-all">
@@ -176,32 +177,31 @@ export default function ImpactReportModal() {
         <div className="flex-1 overflow-y-auto px-10 py-10 custom-scrollbar space-y-10">
           
           {/* Success Banner */}
-          <div className="bg-emerald-50 border border-emerald-200 rounded-3xl px-8 py-6 flex items-center gap-6 shadow-sm">
-            <ShieldCheck className="w-14 h-14 text-emerald-600 shrink-0" />
-            <div>
-              <h3 className="text-2xl font-black text-emerald-800 tracking-tight">CRISIS CONTAINED — 0 Casualties Recorded</h3>
-              <p className="text-lg text-emerald-600 font-medium mt-2">All 42 personnel accounted for. Site secured. No environmental damage.</p>
+          <div className="bg-emerald-50 border border-emerald-200 rounded-3xl px-8 py-6 flex items-center gap-6 shadow-sm relative overflow-hidden group">
+            <div className="absolute inset-0 bg-gradient-to-r from-emerald-400/0 via-emerald-400/20 to-emerald-400/0 -translate-x-full group-hover:animate-[shimmer_2s_infinite]" />
+            <ShieldCheck className="w-14 h-14 text-emerald-600 shrink-0 relative z-10" />
+            <div className="relative z-10">
+              <h3 className="text-2xl font-black text-emerald-800 tracking-tight uppercase">SIMULATED CRISIS CONTAINED</h3>
+              <p className="text-lg text-emerald-600 font-medium mt-2">{totalWorkers}/{totalWorkers} simulated personnel accounted for. Response plan verified in simulation.</p>
             </div>
           </div>
 
           {/* Comparison Table */}
-          <div className="overflow-hidden rounded-2xl border border-stone-200 shadow-sm">
+          <div className="overflow-hidden rounded-2xl border border-stone-200 shadow-sm relative group">
             <table className="w-full text-lg">
               <thead>
                 <tr className="bg-stone-50 border-b border-stone-200">
                   <th className="text-left px-8 py-5 text-sm font-black text-stone-500 uppercase tracking-widest">Metric</th>
-                  <th className="text-center px-6 py-5 text-sm font-black text-red-500 uppercase tracking-widest">Manual</th>
-                  <th className="text-center px-6 py-5 text-sm font-black text-emerald-600 uppercase tracking-widest">minEngine AI</th>
-                  <th className="text-right px-8 py-5 text-sm font-black text-cyan-600 uppercase tracking-widest">Impact</th>
+                  <th className="text-left px-8 py-5 text-sm font-black text-stone-500 uppercase tracking-widest">minEngine Simulation</th>
+                  <th className="text-right px-8 py-5 text-sm font-black text-stone-500 uppercase tracking-widest">Observed Result</th>
                 </tr>
               </thead>
               <tbody>
                 {metrics.map((m, i) => (
-                  <tr key={i} className="border-b last:border-b-0 border-stone-100 hover:bg-stone-50/50 transition-colors">
+                  <tr key={i} className="border-b last:border-b-0 border-stone-100 hover:bg-stone-50/80 transition-colors">
                     <td className="px-8 py-6 text-stone-800 font-bold text-[17px]">{m.label}</td>
-                    <td className="px-6 py-6 text-center text-red-500 font-mono font-bold text-[17px]">{m.manual}</td>
-                    <td className="px-6 py-6 text-center text-emerald-600 font-mono font-bold text-[17px]">{m.ai}</td>
-                    <td className={`px-8 py-6 text-right font-black text-[16px] ${m.impactColor.replace('400', '600')}`}>{m.impact}</td>
+                    <td className="px-8 py-6 text-stone-500 font-mono font-medium text-[15px]">{m.simType}</td>
+                    <td className={`px-8 py-6 text-right font-black text-[16px] ${m.resultColor}`}>{m.result}</td>
                   </tr>
                 ))}
               </tbody>
@@ -210,18 +210,26 @@ export default function ImpactReportModal() {
 
           {/* Stats Cards */}
           <div className="grid grid-cols-3 gap-6">
-            <div className="bg-emerald-50 border border-emerald-100 rounded-3xl p-8 text-center shadow-sm">
-              <div className="text-6xl font-black font-mono text-emerald-600">124ms</div>
-              <div className="text-[14px] font-black text-emerald-800/70 uppercase tracking-widest mt-3">AI Compute Latency</div>
+            <div className="bg-emerald-50 border border-emerald-100 rounded-3xl p-8 text-center shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-transform">
+              <div className="absolute top-0 left-0 w-full h-1 bg-emerald-400" />
+              <div className="text-5xl font-black font-mono text-emerald-600 group-hover:scale-105 transition-transform">{coordCycleTime}</div>
+              <div className="text-[12px] font-black text-emerald-800/70 uppercase tracking-widest mt-3">Simulated Coordination Cycle</div>
             </div>
-            <div className="bg-cyan-50 border border-cyan-100 rounded-3xl p-8 text-center shadow-sm">
-              <div className="text-6xl font-black font-mono text-cyan-600">45ms</div>
-              <div className="text-[14px] font-black text-cyan-800/70 uppercase tracking-widest mt-3">Network Override</div>
+            <div className="bg-cyan-50 border border-cyan-100 rounded-3xl p-8 text-center shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-transform">
+              <div className="absolute top-0 left-0 w-full h-1 bg-cyan-400" />
+              <div className="text-5xl font-black font-mono text-cyan-600 group-hover:scale-105 transition-transform">{replanningTime}</div>
+              <div className="text-[12px] font-black text-cyan-800/70 uppercase tracking-widest mt-3">Simulated Route Replanning</div>
             </div>
-            <div className="bg-stone-50 border border-stone-200 rounded-3xl p-8 text-center shadow-sm">
-              <div className="text-6xl font-black font-mono text-stone-600">4m 12s</div>
-              <div className="text-[14px] font-black text-stone-800/70 uppercase tracking-widest mt-3">Total Evacuation</div>
+            <div className="bg-stone-50 border border-stone-200 rounded-3xl p-8 text-center shadow-sm relative overflow-hidden group hover:-translate-y-1 transition-transform">
+              <div className="absolute top-0 left-0 w-full h-1 bg-stone-300" />
+              <div className="text-5xl font-black font-mono text-stone-600 group-hover:scale-105 transition-transform">{totalWorkers}/{totalWorkers}</div>
+              <div className="text-[12px] font-black text-stone-800/70 uppercase tracking-widest mt-3">Simulated Personnel Accounted</div>
             </div>
+          </div>
+          
+          {/* Disclaimer */}
+          <div className="text-[11px] text-stone-400 text-center font-medium leading-relaxed px-10">
+            <strong>Simulation Note:</strong> All incidents, personnel, telemetry, timings and outcomes shown in this report are generated within the minEngine prototype simulation and are not measurements from a live mine deployment.
           </div>
         </div>
 
@@ -229,17 +237,18 @@ export default function ImpactReportModal() {
         <div className="px-10 py-7 border-t border-stone-200 bg-stone-50 flex gap-6">
           <button
             onClick={handleDownloadPDF}
-            className="flex-1 py-6 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl font-mono text-lg font-black tracking-widest uppercase transition-all flex items-center justify-center gap-3 shadow-[0_8px_20px_rgba(16,185,129,0.2)] hover:shadow-[0_12px_25px_rgba(16,185,129,0.3)] hover:-translate-y-1 active:translate-y-[2px]"
+            className="group relative flex-1 py-6 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl font-mono text-lg font-black tracking-widest uppercase transition-all flex items-center justify-center gap-3 shadow-[0_8px_20px_rgba(16,185,129,0.2)] hover:shadow-[0_12px_25px_rgba(16,185,129,0.3)] hover:-translate-y-1 active:translate-y-[2px] overflow-hidden"
           >
-            <Download className="w-6 h-6" />
-            Download Report (PDF)
+            <div className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]" />
+            <Download className="w-6 h-6 relative z-10 group-hover:scale-110 transition-transform" />
+            <span className="relative z-10">Download Report (PDF)</span>
           </button>
           <button
             onClick={() => window.location.reload()}
-            className="px-10 py-6 bg-white border-2 border-stone-200 hover:border-stone-300 hover:bg-stone-100 text-stone-600 hover:text-stone-900 rounded-2xl font-mono text-lg font-black tracking-widest uppercase transition-all flex items-center justify-center gap-3 shadow-sm hover:-translate-y-1 active:translate-y-[2px]"
+            className="group relative px-10 py-6 bg-white border-2 border-stone-200 hover:border-stone-300 hover:bg-stone-100 text-stone-600 hover:text-stone-900 rounded-2xl font-mono text-lg font-black tracking-widest uppercase transition-all flex items-center justify-center gap-3 shadow-sm hover:-translate-y-1 active:translate-y-[2px] overflow-hidden"
           >
-            <RotateCcw className="w-6 h-6" />
-            Reset Demo
+            <RotateCcw className="w-6 h-6 group-hover:-rotate-90 transition-transform duration-500" />
+            <span>Reset Demo</span>
           </button>
         </div>
       </div>
