@@ -22,7 +22,11 @@
 
 ## 📸 Screenshots
 
-*(Screenshots to be added here)*
+### 1. Liquid Glass Boot Sequence
+![Welcome Screen](docs/welcome.png)
+
+### 2. Live Command Dashboard & GIS Tracking
+![Dashboard Overview](docs/dashboard.png)
 
 ## 🚦 Getting Started
 
