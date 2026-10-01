@@ -133,10 +133,10 @@ export default function GISMap() {
         dragging: true,
       });
 
-      // Light Premium Theme for the map (CartoDB Voyager)
-      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+      // Light Premium Theme for the map (Esri World Topo)
+      L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
         maxZoom: 19,
-        attribution: '&copy; OpenStreetMap &copy; CARTO'
+        attribution: 'Tiles &copy; Esri'
       }).addTo(map);
 
       L.control.zoom({ position: 'bottomleft' }).addTo(map);
