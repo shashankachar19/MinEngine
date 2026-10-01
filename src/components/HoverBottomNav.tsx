@@ -2,7 +2,7 @@ import { useSimulation } from '../store/SimContext';
 import { Terminal, AlertTriangle, ShieldAlert, Cpu, FileText, Loader, Info } from 'lucide-react';
 
 export default function HoverBottomNav() {
-  const { state, goToStep, missionStarted } = useSimulation();
+  const { state, goToStep, missionStarted, openApprovalModal } = useSimulation();
 
   if (!missionStarted) return null;
 
@@ -51,7 +51,7 @@ export default function HoverBottomNav() {
       icon = <Cpu className="w-5 h-5 text-red-600" />;
       textClass = 'text-red-700 font-bold';
       buttonClass = 'bg-red-50 hover:bg-red-100 text-red-800 font-bold animate-pulse';
-      action = () => goToStep(4);
+      action = () => openApprovalModal();
       explainerTitle = 'Phase 4: Dynamic Re-routing';
       explainerText = 'The AI will recalculate the safest extraction path in real-time and redirect Ambulance 2 via the Bravo-2 ramp.';
       break;

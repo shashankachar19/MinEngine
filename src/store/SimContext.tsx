@@ -10,6 +10,7 @@ interface SimContextType {
   approveAndResolve: () => void;
   visibleLogs: typeof SIMULATION_LOGS;
   closePlanPanel: () => void;
+  openApprovalModal: () => void;
   closeApprovalModal: () => void;
   closeImpactReport: () => void;
   pendingStep: number | null;
@@ -133,6 +134,7 @@ export function SimProvider({ children }: { children: ReactNode }) {
   };
 
   const closePlanPanel = () => setState(prev => ({ ...prev, showPlanPanel: false }));
+  const openApprovalModal = () => setState(prev => ({ ...prev, showApprovalModal: true }));
   const closeApprovalModal = () => setState(prev => ({ ...prev, showApprovalModal: false }));
   const closeImpactReport = () => setState(prev => ({ ...prev, showImpactReport: false }));
 
@@ -146,6 +148,7 @@ export function SimProvider({ children }: { children: ReactNode }) {
       approveAndResolve,
       visibleLogs: state.visibleLogs,
       closePlanPanel,
+      openApprovalModal,
       closeApprovalModal,
       closeImpactReport,
       pendingStep,
