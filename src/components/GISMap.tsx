@@ -9,14 +9,15 @@ const MINE_CENTER: [number, number] = [15.085, 76.55];
 const SECTOR_1: [number, number] = [15.098, 76.535];
 const SECTOR_4: [number, number] = [15.083, 76.545];
 
-const MEDICAL_DEPOT: [number, number] = [15.095, 76.562];
-const HAUL_TRUCK_POS: [number, number] = [15.078, 76.550];
+const MEDICAL_DEPOT: [number, number] = [15.097, 76.565];
+const HAUL_TRUCK_POS: [number, number] = [15.087, 76.554];
 const CRASH_POINT: [number, number] = [15.087, 76.554];
 
-// Route Alpha-4: Medical Depot → Sector 4 (direct road)
+// Route Alpha-4: Medical Depot → Sector 4 (Direct but curvy)
 const ROUTE_ALPHA: [number, number][] = [
   MEDICAL_DEPOT,
-  [15.091, 76.557],
+  [15.094, 76.560],
+  [15.090, 76.558],
   CRASH_POINT,
   [15.085, 76.550],
   SECTOR_4,
@@ -25,13 +26,30 @@ const ROUTE_ALPHA: [number, number][] = [
 // Route Bravo-2: Alternate western bypass (Medical Depot → west → south → Sector 4)
 const ROUTE_BRAVO: [number, number][] = [
   MEDICAL_DEPOT,
-  [15.097, 76.555],
-  [15.096, 76.547],
-  [15.092, 76.540],
-  [15.087, 76.538],
-  [15.083, 76.540],
+  [15.099, 76.555],
+  [15.096, 76.545],
+  [15.090, 76.540],
+  [15.084, 76.538],
+  [15.081, 76.542],
   SECTOR_4,
 ];
+
+// Helper: Interpolate route for smooth animation
+function interpolateRoute(route: [number, number][], stepsPerSegment = 30): [number, number][] {
+  const points: [number, number][] = [];
+  for (let i = 0; i < route.length - 1; i++) {
+    const start = route[i];
+    const end = route[i + 1];
+    for (let j = 0; j <= stepsPerSegment; j++) {
+      const t = j / stepsPerSegment;
+      points.push([
+        start[0] + (end[0] - start[0]) * t,
+        start[1] + (end[1] - start[1]) * t
+      ]);
+    }
+  }
+  return points;
+}
 
 function createIcon(html: string, size: [number, number] = [44, 44]) {
   return L.divIcon({
@@ -115,8 +133,10 @@ export default function GISMap() {
         dragging: true,
       });
 
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      // Light Premium Theme for the map (CartoDB Voyager)
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
         maxZoom: 19,
+        attribution: '&copy; OpenStreetMap &copy; CARTO'
       }).addTo(map);
 
       L.control.zoom({ position: 'bottomleft' }).addTo(map);
@@ -138,8 +158,8 @@ export default function GISMap() {
 
     // ── Route Alpha-4 ──
     const alphaColor = state.step >= 3 ? '#ef4444' : '#3b82f6';
-    L.polyline(ROUTE_ALPHA, { color: '#ffffff', weight: 14, opacity: 0.5, lineCap: 'round' }).addTo(routeLayers);
-    L.polyline(ROUTE_ALPHA, { color: alphaColor, weight: 7, opacity: 0.9, lineCap: 'round' }).addTo(routeLayers);
+    L.polyline(ROUTE_ALPHA, { color: '#e5e7eb', weight: 14, opacity: 0.8, lineCap: 'round' }).addTo(routeLayers);
+    L.polyline(ROUTE_ALPHA, { color: alphaColor, weight: 6, opacity: 0.9, lineCap: 'round', dashArray: state.step >= 3 ? '10 10' : '' }).addTo(routeLayers);
 
     const alphaLabel = state.step >= 3 ? 'ALPHA-4 (BLOCKED)' : 'ALPHA-4 (MAIN)';
     const alphaLabelColor = state.step >= 3 ? '#dc2626' : '#1d4ed8';
@@ -155,8 +175,8 @@ export default function GISMap() {
 
     // ── Route Bravo-2 (alternate bypass — appears at step 4) ──
     if (state.step >= 4) {
-      L.polyline(ROUTE_BRAVO, { color: '#ffffff', weight: 14, opacity: 0.5, lineCap: 'round' }).addTo(routeLayers);
-      L.polyline(ROUTE_BRAVO, { color: '#10b981', weight: 7, opacity: 0.9, lineCap: 'round', dashArray: '12 6' }).addTo(routeLayers);
+      L.polyline(ROUTE_BRAVO, { color: '#e5e7eb', weight: 14, opacity: 0.8, lineCap: 'round' }).addTo(routeLayers);
+      L.polyline(ROUTE_BRAVO, { className: 'animated-route', color: '#10b981', weight: 6, opacity: 1, lineCap: 'round', dashArray: '15 15' }).addTo(routeLayers);
 
       L.marker([15.092, 76.541], {
         icon: L.divIcon({
@@ -221,10 +241,11 @@ export default function GISMap() {
     // ── Haul Truck / Crash ──
     if (state.step >= 3) {
       const crashIcon = createIcon(`
-        <div style="width:54px;height:54px;border-radius:50%;background:white;border:4px solid #dc2626;display:flex;align-items:center;justify-content:center;box-shadow:0 0 30px rgba(220,38,38,0.5);cursor:pointer">
-          <span style="font-size:24px">💥</span>
+        <div class="animate-crash-pulse" style="width:58px;height:58px;border-radius:50%;background:white;border:4px solid #dc2626;display:flex;align-items:center;justify-content:center;box-shadow:0 0 30px rgba(220,38,38,0.7);cursor:pointer;position:relative">
+          <div style="position:absolute;inset:0;border-radius:50%;background:#ef4444;animation:ping 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;opacity:0.5"></div>
+          <span style="font-size:26px;position:relative;z-index:10;animation:shake 0.5s">💥</span>
         </div>
-      `, [54, 54]);
+      `, [58, 58]);
       L.marker(CRASH_POINT, { icon: crashIcon })
         .addTo(layers)
         .bindTooltip(`
@@ -251,20 +272,36 @@ export default function GISMap() {
     }
 
     // ── Ambulance 1 ──
-    const amb1Pos = state.step >= 2 ? CRASH_POINT : MEDICAL_DEPOT;
     const amb1Border = state.step >= 3 ? '#ef4444' : state.step === 2 ? '#3b82f6' : '#a8a29e';
     const amb1Shadow = state.step >= 3 ? 'rgba(239,68,68,0.4)' : state.step === 2 ? 'rgba(59,130,246,0.4)' : 'rgba(0,0,0,0.1)';
-    const amb1Opacity = state.step >= 3 ? 'opacity:0.5;filter:grayscale(1);' : '';
+    const amb1Opacity = state.step >= 3 ? 'opacity:0.6;filter:grayscale(0.5);' : '';
     const amb1Icon = createIcon(`
       <div style="width:44px;height:44px;border-radius:50%;background:white;border:3px solid ${amb1Border};display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px ${amb1Shadow};cursor:pointer;${amb1Opacity}">
         <span style="font-size:20px">🚑</span>
       </div>
     `);
+    
+    // Ambulance 1 drives to crash point in step 2
+    const amb1Marker = L.marker(MEDICAL_DEPOT, { icon: amb1Icon }).addTo(layers);
+    
+    if (state.step === 2) {
+      const interpolatedAlpha = interpolateRoute(ROUTE_ALPHA.slice(0, 3), 30);
+      let idx = 0;
+      const iv = setInterval(() => {
+        if (idx < interpolatedAlpha.length) {
+          amb1Marker.setLatLng(interpolatedAlpha[idx]);
+          idx++;
+        } else {
+          clearInterval(iv);
+        }
+      }, 30);
+    } else if (state.step >= 3) {
+      amb1Marker.setLatLng(CRASH_POINT);
+    }
+
     const amb1Status = state.step >= 3 ? 'Blocked by crash debris on Alpha-4' : state.step === 2 ? 'En route to Sector 4 via Alpha-4' : 'Standby at Medical Depot';
     const amb1Color = state.step >= 3 ? '#dc2626' : state.step === 2 ? '#1d4ed8' : '#57534e';
-    L.marker(amb1Pos, { icon: amb1Icon })
-      .addTo(layers)
-      .bindTooltip(`
+    amb1Marker.bindTooltip(`
         <div style="font-family:'Outfit',sans-serif;min-width:260px">
           <div style="font-size:14px;font-weight:900;color:${amb1Color};text-transform:uppercase;letter-spacing:2px;margin-bottom:10px">🚑 Ambulance 1</div>
           <div style="font-size:16px;font-weight:600;color:${amb1Color}">${amb1Status}</div>
@@ -272,7 +309,6 @@ export default function GISMap() {
       `, { ...tooltipOpts });
 
     // ── Ambulance 2 ──
-    const amb2Pos = state.step >= 4 ? SECTOR_4 : MEDICAL_DEPOT;
     const amb2Border = state.step >= 4 ? '#10b981' : '#a8a29e';
     const amb2Shadow = state.step >= 4 ? 'rgba(16,185,129,0.4)' : 'rgba(0,0,0,0.1)';
     const amb2Icon = createIcon(`
@@ -280,11 +316,26 @@ export default function GISMap() {
         <span style="font-size:20px">🚑</span>
       </div>
     `);
+    
+    const amb2Marker = L.marker(MEDICAL_DEPOT, { icon: amb2Icon }).addTo(layers);
+    
+    // Ambulance 2 drives to Sector 4 in step 4
+    if (state.step >= 4) {
+      const interpolatedBravo = interpolateRoute(ROUTE_BRAVO, 30);
+      let idx2 = 0;
+      const iv2 = setInterval(() => {
+        if (idx2 < interpolatedBravo.length) {
+          amb2Marker.setLatLng(interpolatedBravo[idx2]);
+          idx2++;
+        } else {
+          clearInterval(iv2);
+        }
+      }, 20); // Smooth drive animation
+    }
+
     const amb2Status = state.step >= 4 ? 'Arrived at Sector 4 — Rescuing workers' : 'Standby at Medical Depot';
     const amb2Color = state.step >= 4 ? '#047857' : '#57534e';
-    L.marker(amb2Pos, { icon: amb2Icon })
-      .addTo(layers)
-      .bindTooltip(`
+    amb2Marker.bindTooltip(`
         <div style="font-family:'Outfit',sans-serif;min-width:260px">
           <div style="font-size:14px;font-weight:900;color:${amb2Color};text-transform:uppercase;letter-spacing:2px;margin-bottom:10px">🚑 Ambulance 2</div>
           <div style="font-size:16px;font-weight:600;color:${amb2Color}">${amb2Status}</div>
@@ -354,6 +405,30 @@ export default function GISMap() {
           </div>
         </div>
       )}
+
+      {/* Embedded CSS for animations */}
+      <style>{`
+        @keyframes shake {
+          0%, 100% { transform: translateX(0); }
+          25% { transform: translateX(-4px) rotate(-5deg); }
+          75% { transform: translateX(4px) rotate(5deg); }
+        }
+        .animate-crash-pulse {
+          animation: crash-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes crash-in {
+          0% { transform: scale(0); }
+          50% { transform: scale(1.3); }
+          100% { transform: scale(1); }
+        }
+        .animated-route {
+          stroke-dasharray: 20 20;
+          animation: dash-flow 1.5s linear infinite;
+        }
+        @keyframes dash-flow {
+          to { stroke-dashoffset: -40; }
+        }
+      `}</style>
     </div>
   );
 }

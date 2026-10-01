@@ -5,6 +5,7 @@ import HoverBottomNav from './HoverBottomNav';
 import ResourcePanel from './ResourcePanel';
 import RightSidebarResizable from './RightSidebarResizable';
 import ImpactReportModal from './ImpactReportModal';
+import ApprovalModal from './ApprovalModal';
 import { useSimulation } from '../store/SimContext';
 
 export default function CommandCenter() {
@@ -47,6 +48,9 @@ export default function CommandCenter() {
 
       {/* Full-Screen Impact Report Modal */}
       <ImpactReportModal />
+
+      {/* Approval Modal (Human-in-the-loop override) */}
+      <ApprovalModal />
     </div>
   );
 }
