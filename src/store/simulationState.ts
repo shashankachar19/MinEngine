@@ -52,16 +52,16 @@ export const SIMULATION_LOGS: LogEntry[] = [
     id: 's0-1',
     timestamp: '14:00:00',
     level: 'system',
-    source: 'SYSTEM',
-    message: 'minEngine Dashboard started. Everything looks good!',
+    source: '[Agent: System Monitor]',
+    message: 'minEngine core systems initialized. All subsystems nominal.',
     step: 0
   },
   {
     id: 's0-2',
     timestamp: '14:00:01',
     level: 'system',
-    source: 'SYSTEM',
-    message: 'Watching all sectors. 42 workers are currently on site.',
+    source: '[Agent: Grid Watcher]',
+    message: 'Active monitoring established. 42 personnel registered across all sectors.',
     step: 0
   },
 
@@ -70,24 +70,24 @@ export const SIMULATION_LOGS: LogEntry[] = [
     id: 's1-1',
     timestamp: '14:04:12',
     level: 'perception',
-    source: 'SENSORS',
-    message: 'Wait! The ground is shifting in Sector 4!',
+    source: '[GEO-SENSOR 402]',
+    message: 'RAW_DATA: Slope displacement anomaly > 12mm/hr detected.',
     step: 1
   },
   {
     id: 's1-2',
     timestamp: '14:04:12',
     level: 'risk',
-    source: 'AI RISK',
-    message: 'DANGER! 17 workers are in direct danger in Sector 4.',
+    source: '[Agent: Risk Analyst]',
+    message: 'CRITICAL HAZARD: Sector 4 instability confirmed. 17 workers in exposure zone.',
     step: 1
   },
   {
     id: 's1-3',
     timestamp: '14:04:13',
     level: 'command',
-    source: 'COMMAND',
-    message: 'Creating an emergency rescue plan right now.',
+    source: '[Agent: Ops Commander]',
+    message: 'Evacuation protocol initiated. Generating immediate extraction plan.',
     step: 1
   },
 
@@ -96,24 +96,24 @@ export const SIMULATION_LOGS: LogEntry[] = [
     id: 's2-1',
     timestamp: '14:04:15',
     level: 'command',
-    source: 'COMMAND',
-    message: 'Plan approved! Telling everyone to get out.',
+    source: '[Agent: Ops Commander]',
+    message: 'Plan authorized by Human-in-the-Loop. Broadcasting evacuation orders.',
     step: 2
   },
   {
     id: 's2-2',
     timestamp: '14:04:16',
     level: 'resource',
-    source: 'RESOURCES',
-    message: 'Sending Ambulance 1 and Rescue Team 1 down Route Alpha-4.',
+    source: '[Agent: Fleet Dispatcher]',
+    message: 'Ambulance 1 & Rescue Team 1 dispatched via primary route Alpha-4.',
     step: 2
   },
   {
     id: 's2-3',
     timestamp: '14:04:18',
     level: 'routing',
-    source: 'AI ROUTING',
-    message: 'Ambulance 1 is on the way. It will be there very soon.',
+    source: '[Agent: Route Navigator]',
+    message: 'Tracking ETA for Ambulance 1. Route Alpha-4 is clear.',
     step: 2
   },
 
@@ -122,24 +122,24 @@ export const SIMULATION_LOGS: LogEntry[] = [
     id: 's3-1',
     timestamp: '14:05:42',
     level: 'perception',
-    source: 'SENSORS',
-    message: 'OH NO! Haul Truck 1 just crashed on Route Alpha-4!',
+    source: '[OBD-SENSOR HT1]',
+    message: 'ERR_CODE_77X: Engine failure detected. Telemetry offline.',
     step: 3
   },
   {
     id: 's3-2',
     timestamp: '14:05:43',
     level: 'risk',
-    source: 'AI RISK',
-    message: 'Route Alpha-4 is completely blocked. Ambulance 1 is stuck!',
+    source: '[Agent: Risk Analyst]',
+    message: 'Alpha-4 blocked by Haul Truck 1. Ambulance 1 progress halted.',
     step: 3
   },
   {
     id: 's3-3',
     timestamp: '14:05:43',
     level: 'routing',
-    source: 'AI ROUTING',
-    message: 'The original plan failed. Figuring out a new way to save the workers...',
+    source: '[Agent: Route Navigator]',
+    message: 'Primary plan invalidated. Computing alternative extraction vectors...',
     step: 3
   },
 
@@ -148,32 +148,32 @@ export const SIMULATION_LOGS: LogEntry[] = [
     id: 's4-1',
     timestamp: '14:05:48',
     level: 'command',
-    source: 'COMMAND',
-    message: 'New plan authorized! Taking control.',
+    source: '[Agent: Ops Commander]',
+    message: 'Human-in-the-Loop override granted. Seizing control of dispatch.',
     step: 4
   },
   {
     id: 's4-2',
     timestamp: '14:05:49',
     level: 'routing',
-    source: 'AI ROUTING',
-    message: 'Found a safe path! Sending Ambulance 2 down the Bravo-2 Ramp instead.',
+    source: '[Agent: Route Navigator]',
+    message: 'Valid bypass found. Redirecting Ambulance 2 via Bravo-2 ramp.',
     step: 4
   },
   {
     id: 's4-3',
     timestamp: '14:05:51',
     level: 'resource',
-    source: 'RESOURCES',
-    message: 'Ambulance 2 has arrived safely. Starting rescues.',
+    source: '[Agent: Fleet Dispatcher]',
+    message: 'Ambulance 2 on-site at Sector 4. Medical extraction initiated.',
     step: 4
   },
   {
     id: 's4-4',
     timestamp: '14:05:55',
     level: 'system',
-    source: 'SYSTEM',
-    message: 'Everyone is safe. Crisis averted with zero casualties!',
+    source: '[Agent: System Monitor]',
+    message: 'All 17 workers secured. Crisis successfully contained.',
     step: 4
   }
 ];

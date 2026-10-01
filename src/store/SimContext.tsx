@@ -40,29 +40,29 @@ export function SimProvider({ children }: { children: ReactNode }) {
     // Step-specific thinking durations (total ~45s across all 4 steps)
     const thinkingPhases: Record<number, { message: string; duration: number }[]> = {
       1: [
-        { message: 'Analyzing geo-sensor data streams...', duration: 2500 },
-        { message: 'Correlating slope displacement readings (2mm → 12mm)...', duration: 3000 },
-        { message: 'Running risk assessment model on Sector 4...', duration: 2500 },
-        { message: 'Identifying 17 exposed personnel via IoT tags...', duration: 2000 },
+        { message: 'Geo-Analyst AI: Processing raw sensor streams', duration: 4000 },
+        { message: 'Geo-Analyst AI: Slope displacement confirmed', duration: 1500 },
+        { message: 'Risk Analyst AI: Evaluating Sector 4 threat matrix', duration: 4500 },
+        { message: 'Risk Analyst AI: 17 personnel isolated in hazard zone', duration: 1500 },
       ],
       2: [
-        { message: 'Calculating optimal evacuation route...', duration: 2500 },
-        { message: 'Checking Route Alpha-4 clearance status...', duration: 2000 },
-        { message: 'Dispatching Ambulance 1 and Rescue Team 1...', duration: 2500 },
-        { message: 'Broadcasting emergency alerts to all personnel...', duration: 2000 },
+        { message: 'Route Navigator AI: Computing optimal extraction vectors', duration: 4000 },
+        { message: 'Route Navigator AI: Alpha-4 designated as primary', duration: 1500 },
+        { message: 'Fleet Dispatcher AI: Allocating medical and rescue units', duration: 4500 },
+        { message: 'Fleet Dispatcher AI: Ambulance 1 dispatched', duration: 1500 },
       ],
       3: [
-        { message: 'Detecting secondary incident on Route Alpha-4...', duration: 2000 },
-        { message: 'Analyzing crash debris field and road blockage...', duration: 3000 },
-        { message: 'Re-evaluating all available evacuation routes...', duration: 2500 },
-        { message: 'Flagging Ambulance 1 as blocked — plan invalidated...', duration: 2500 },
+        { message: 'System Monitor AI: Analyzing telemetry loss on HT-1', duration: 4000 },
+        { message: 'System Monitor AI: Engine failure confirmed', duration: 1500 },
+        { message: 'Route Navigator AI: Calculating Alpha-4 blockage impact', duration: 4500 },
+        { message: 'Route Navigator AI: Extraction plan invalidated', duration: 1500 },
       ],
       4: [
-        { message: 'Initiating dynamic replanning algorithm...', duration: 2500 },
-        { message: 'Scanning for alternate safe paths to Sector 4...', duration: 3000 },
-        { message: 'Routing Ambulance 2 via western bypass...', duration: 2500 },
-        { message: 'Confirming arrival — all 17 workers accounted for...', duration: 3000 },
-      ],
+        { message: 'Ops Commander AI: Executing dynamic replanning', duration: 4000 },
+        { message: 'Ops Commander AI: Bypass sequence authorized', duration: 1500 },
+        { message: 'Route Navigator AI: Verifying Bravo-2 bypass integrity', duration: 4500 },
+        { message: 'Fleet Dispatcher AI: Ambulance 2 rerouted', duration: 1500 },
+      ]
     };
 
     const phases = thinkingPhases[targetStep] || [{ message: 'Processing...', duration: 3000 }];

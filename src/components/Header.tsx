@@ -48,12 +48,36 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Center: Status indicator */}
+      {/* Center: Agent Execution Status / System Status */}
       <div className={`flex items-center gap-3 px-6 py-3 rounded-2xl font-mono tracking-widest transition-all duration-500 ${statusClass}`}>
-        <div className={`w-2 h-2 rounded-full ${dotColor}`} />
-        <span className="text-xs font-black uppercase">
-          {state.isProcessing ? 'AI PROCESSING...' : state.statusLabel}
-        </span>
+        {state.isProcessing ? (
+          <>
+            {state.processingMessage.includes('confirmed') || 
+             state.processingMessage.includes('authorized') || 
+             state.processingMessage.includes('invalidated') || 
+             state.processingMessage.includes('rerouted') || 
+             state.processingMessage.includes('primary') || 
+             state.processingMessage.includes('dispatched') ||
+             state.processingMessage.includes('isolated') ? (
+              <span className="text-emerald-500 font-black text-sm">✓</span>
+            ) : (
+              <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-emerald-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+            )}
+            <span className="text-[11px] font-black uppercase text-emerald-900 tracking-wider">
+              {state.processingMessage}
+            </span>
+          </>
+        ) : (
+          <>
+            <div className={`w-2 h-2 rounded-full ${dotColor}`} />
+            <span className="text-xs font-black uppercase">
+              {state.statusLabel}
+            </span>
+          </>
+        )}
       </div>
 
       {/* Right: Location + Clock */}

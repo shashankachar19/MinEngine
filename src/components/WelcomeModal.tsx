@@ -170,7 +170,7 @@ export default function WelcomeModal() {
                 <div className="absolute inset-0 -translate-x-full group-hover:animate-[shimmer_1.5s_infinite] bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12" />
                 <Play className="w-5 h-5 relative z-10" fill="currentColor" />
                 <span className="font-mono text-[12px] tracking-widest font-black relative z-10 uppercase">
-                  [ ENTER COMMAND CENTER ]
+                  [ CLICK HERE TO START SIMULATION ]
                 </span>
               </motion.button>
             </motion.div>

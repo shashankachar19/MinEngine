@@ -25,10 +25,10 @@ export default function ImpactReportModal() {
       impactColor: 'text-emerald-400',
     },
     {
-      label: 'Estimated Damage Cost',
-      manual: '₹1.8 Cr ($120K)',
-      ai: '₹12.5 L ($15K)',
-      impact: '↓ 87.5% saved',
+      label: 'AI Compute Latency',
+      manual: 'N/A',
+      ai: '124 ms',
+      impact: '↓ Ultra-low latency',
       impactColor: 'text-emerald-400',
     },
     {
@@ -133,9 +133,9 @@ export default function ImpactReportModal() {
         </table>
 
         <div class="stats">
-          <div class="stat emerald"><div class="num">${aiResponseTime}s</div><div class="label">AI Response Time</div></div>
-          <div class="stat red"><div class="num">12m</div><div class="label">Manual Estimate</div></div>
-          <div class="stat blue"><div class="num">₹87L</div><div class="label">Cost Saved</div></div>
+          <div class="stat emerald"><div class="num">124ms</div><div class="label">AI Compute Latency</div></div>
+          <div class="stat blue"><div class="num">45ms</div><div class="label">Network Override</div></div>
+          <div class="stat red"><div class="num">4m 12s</div><div class="label">Total Evacuation</div></div>
         </div>
 
         <div class="footer">
@@ -211,16 +211,16 @@ export default function ImpactReportModal() {
           {/* Stats Cards */}
           <div className="grid grid-cols-3 gap-6">
             <div className="bg-emerald-50 border border-emerald-100 rounded-3xl p-8 text-center shadow-sm">
-              <div className="text-6xl font-black font-mono text-emerald-600">{aiResponseTime}s</div>
-              <div className="text-[14px] font-black text-emerald-800/70 uppercase tracking-widest mt-3">AI Response Time</div>
-            </div>
-            <div className="bg-red-50 border border-red-100 rounded-3xl p-8 text-center shadow-sm">
-              <div className="text-6xl font-black font-mono text-red-500">12m</div>
-              <div className="text-[14px] font-black text-red-800/70 uppercase tracking-widest mt-3">Manual Estimate</div>
+              <div className="text-6xl font-black font-mono text-emerald-600">124ms</div>
+              <div className="text-[14px] font-black text-emerald-800/70 uppercase tracking-widest mt-3">AI Compute Latency</div>
             </div>
             <div className="bg-cyan-50 border border-cyan-100 rounded-3xl p-8 text-center shadow-sm">
-              <div className="text-6xl font-black font-mono text-cyan-600">₹87L</div>
-              <div className="text-[14px] font-black text-cyan-800/70 uppercase tracking-widest mt-3">Cost Saved</div>
+              <div className="text-6xl font-black font-mono text-cyan-600">45ms</div>
+              <div className="text-[14px] font-black text-cyan-800/70 uppercase tracking-widest mt-3">Network Override</div>
+            </div>
+            <div className="bg-stone-50 border border-stone-200 rounded-3xl p-8 text-center shadow-sm">
+              <div className="text-6xl font-black font-mono text-stone-600">4m 12s</div>
+              <div className="text-[14px] font-black text-stone-800/70 uppercase tracking-widest mt-3">Total Evacuation</div>
             </div>
           </div>
         </div>
