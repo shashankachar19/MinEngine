@@ -20,7 +20,7 @@ export default function HoverBottomNav() {
       text = 'SYSTEM NOMINAL. ALL SECTORS SECURE.';
       buttonText = '[ CLICK HERE TO START SIMULATION ]';
       icon = <Terminal className="w-5 h-5 text-emerald-700" />;
-      buttonClass = 'bg-emerald-50 hover:bg-emerald-100 text-emerald-800 animate-pulse ring-2 ring-emerald-500/50 shadow-[0_0_15px_rgba(16,185,129,0.5)]';
+      buttonClass = 'bg-emerald-600 hover:bg-emerald-700 text-white animate-[pulse_2s_ease-in-out_infinite] ring-4 ring-emerald-500/30 shadow-[0_0_25px_rgba(16,185,129,0.6)]';
       action = () => goToStep(1);
       explainerTitle = 'Phase 1: Hazard Induction';
       explainerText = 'This will simulate a critical slope displacement in Sector 4 to demonstrate the AI\'s real-time detection capabilities.';
@@ -30,7 +30,7 @@ export default function HoverBottomNav() {
       buttonText = '[ APPROVE EVACUATION PLAN ]';
       icon = <AlertTriangle className="w-5 h-5 text-red-600" />;
       textClass = 'text-red-700 font-bold';
-      buttonClass = 'bg-red-50 hover:bg-red-100 text-red-800 font-bold';
+      buttonClass = 'bg-red-600 hover:bg-red-700 text-white font-black animate-[pulse_2s_ease-in-out_infinite] ring-4 ring-red-500/30 shadow-[0_0_25px_rgba(220,38,38,0.6)]';
       action = () => goToStep(2); 
       explainerTitle = 'Phase 2: AI Response';
       explainerText = 'The AI has formulated a containment strategy. Clicking this authorizes the deployment of Ambulance 1 via Route Alpha-4.';
@@ -40,7 +40,7 @@ export default function HoverBottomNav() {
       buttonText = '[ SIMULATE VEHICLE CRASH ]';
       icon = <ShieldAlert className="w-5 h-5 text-orange-600" />;
       textClass = 'text-orange-700 font-bold';
-      buttonClass = 'bg-orange-50 hover:bg-orange-100 text-orange-800 font-bold';
+      buttonClass = 'bg-orange-600 hover:bg-orange-700 text-white font-black animate-[pulse_2s_ease-in-out_infinite] ring-4 ring-orange-500/30 shadow-[0_0_25px_rgba(234,88,12,0.6)]';
       action = () => goToStep(3);
       explainerTitle = 'Phase 3: Cascading Failure';
       explainerText = 'Inject a secondary crisis (a crashed haul truck) to block the primary evacuation route and test the system\'s resilience.';
@@ -50,7 +50,7 @@ export default function HoverBottomNav() {
       buttonText = '[ INITIATE DYNAMIC REPLANNING ]';
       icon = <Cpu className="w-5 h-5 text-red-600" />;
       textClass = 'text-red-700 font-bold';
-      buttonClass = 'bg-red-50 hover:bg-red-100 text-red-800 font-bold animate-pulse';
+      buttonClass = 'bg-red-600 hover:bg-red-700 text-white font-black animate-[pulse_2s_ease-in-out_infinite] ring-4 ring-red-500/30 shadow-[0_0_25px_rgba(220,38,38,0.6)]';
       action = () => openApprovalModal();
       explainerTitle = 'Phase 4: Dynamic Re-routing';
       explainerText = 'The AI will recalculate the safest extraction path in real-time and redirect Ambulance 2 via the Bravo-2 ramp.';
