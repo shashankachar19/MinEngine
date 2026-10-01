@@ -9,15 +9,14 @@ const MINE_CENTER: [number, number] = [15.085, 76.55];
 const SECTOR_1: [number, number] = [15.098, 76.535];
 const SECTOR_4: [number, number] = [15.083, 76.545];
 
-const MEDICAL_DEPOT: [number, number] = [15.097, 76.565];
-const HAUL_TRUCK_POS: [number, number] = [15.087, 76.554];
+const MEDICAL_DEPOT: [number, number] = [15.095, 76.562];
+const HAUL_TRUCK_POS: [number, number] = [15.078, 76.550];
 const CRASH_POINT: [number, number] = [15.087, 76.554];
 
-// Route Alpha-4: Medical Depot → Sector 4 (Direct but curvy)
+// Route Alpha-4: Medical Depot → Sector 4 (direct road)
 const ROUTE_ALPHA: [number, number][] = [
   MEDICAL_DEPOT,
-  [15.094, 76.560],
-  [15.090, 76.558],
+  [15.091, 76.557],
   CRASH_POINT,
   [15.085, 76.550],
   SECTOR_4,
@@ -26,11 +25,11 @@ const ROUTE_ALPHA: [number, number][] = [
 // Route Bravo-2: Alternate western bypass (Medical Depot → west → south → Sector 4)
 const ROUTE_BRAVO: [number, number][] = [
   MEDICAL_DEPOT,
-  [15.099, 76.555],
-  [15.096, 76.545],
-  [15.090, 76.540],
-  [15.084, 76.538],
-  [15.081, 76.542],
+  [15.097, 76.555],
+  [15.096, 76.547],
+  [15.092, 76.540],
+  [15.087, 76.538],
+  [15.083, 76.540],
   SECTOR_4,
 ];
 
